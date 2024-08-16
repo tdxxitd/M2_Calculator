@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             case "-":
                 result = variableA - variableB;
                 break;
-            case "*":
+            case "X":
                 result = variableA * variableB;
                 break;
             case "/":
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
-
         textView.setText(String.valueOf(result));
     }
 }
