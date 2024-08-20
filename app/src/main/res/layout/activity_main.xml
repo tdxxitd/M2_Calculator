@@ -35,6 +35,15 @@
 
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/btn_first"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Next"
+        android:visibility="gone"
+        android:textSize="30sp"
+        android:background="@drawable/btn_background"/>
     
     <LinearLayout
         android:id="@+id/container"

@@ -1,7 +1,10 @@
 package com.example.thirdhomework;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private Integer variableA, variableB;
     private Boolean IsOperationClick;
     private String operator = "";
+    private Button showResult;
+
 
 
     @Override
@@ -24,8 +29,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        showResult = findViewById(R.id.btn_first);
         textView = findViewById(R.id.text_view);
+
+        showResult.setOnClickListener(new View.OnClickListener() {
+            String data = textView.getText().toString();
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Second_Activity.class);
+                intent.putExtra("key1", data);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
     public void OnNumberClick(View view) {
         String text = ((MaterialButton) view).getText().toString();
@@ -75,5 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         textView.setText(String.valueOf(result));
+        showResult.setVisibility(View.VISIBLE);
     }
 }

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ThirdHomework"
         tools:targetApi="31">
         <activity
+            android:name=".Second_Activity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
