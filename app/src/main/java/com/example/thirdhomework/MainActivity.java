@@ -4,24 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView textView;
-    private Integer variableA, variableB;
-    private Boolean IsOperationClick;
-    private String operator = "";
-    private Button showResult;
 
+    private TextView textView;
+    private Integer variableA = null, variableB = null;
+    private Boolean IsOperationClick = false;
+    private String operator = "";
 
 
     @Override
@@ -29,50 +23,53 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        showResult = findViewById(R.id.btn_first);
         textView = findViewById(R.id.text_view);
 
-        showResult.setOnClickListener(new View.OnClickListener() {
-            String data = textView.getText().toString();
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Second_Activity.class);
-                intent.putExtra("key1", data);
-                startActivity(intent);
-            }
-        });
     }
-
 
 
     public void OnNumberClick(View view) {
         String text = ((MaterialButton) view).getText().toString();
-        if(text.equals("AC")){
+
+        if (text.equals("AC")) {
             textView.setText("0");
-            variableA = 0;
-            variableB = 0;
-        } else if (textView.getText().toString().equals("0") || IsOperationClick){
+            variableA = null;
+            variableB = null;
+            operator = "";
+        } else if (textView.getText().toString().equals("0") || IsOperationClick) {
             textView.setText(text);
-        }else {
+        } else {
             textView.append(text);
         }
+
         IsOperationClick = false;
     }
 
-
-
     public void onOperatorClick(View view) {
-        String text = ((MaterialButton) view).getText().toString();
-        operator = ((TextView) view).getText().toString();
-        variableA = Integer.valueOf(textView.getText().toString());
+        operator = ((MaterialButton) view).getText().toString();
+        try {
+            variableA = Integer.valueOf(textView.getText().toString());
+        } catch (NumberFormatException e) {
+            textView.setText("Ошибка");
+            return;
+        }
         IsOperationClick = true;
     }
 
-
     public void onEqualClick(View view) {
-        variableB = Integer.valueOf(textView.getText().toString());
-        double result = 0;
+        if (operator.isEmpty() || variableA == null) {
+            textView.setText("Ошибка операции");
+            return;
+        }
 
+        try {
+            variableB = Integer.valueOf(textView.getText().toString());
+        } catch (NumberFormatException e) {
+            textView.setText("Ошибка");
+            return;
+        }
+
+        int result;
         switch (operator) {
             case "+":
                 result = variableA + variableB;
@@ -87,12 +84,16 @@ public class MainActivity extends AppCompatActivity {
                 if (variableB != 0) {
                     result = variableA / variableB;
                 } else {
-                    textView.setText("It is cannot to be");
+                    textView.setText("На 0 делить нельзя");
                     return;
                 }
                 break;
+            default:
+                textView.setText("Ошибка");
+                return;
         }
         textView.setText(String.valueOf(result));
-        showResult.setVisibility(View.VISIBLE);
+
+
     }
 }

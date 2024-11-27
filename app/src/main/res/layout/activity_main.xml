@@ -8,6 +8,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Result ->"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/orange"
+        android:textSize="28sp"
+        android:layout_height="90dp"/>
+
     <FrameLayout
         android:paddingHorizontal="30dp"
         android:clipToPadding="false"
@@ -37,13 +50,15 @@
     </FrameLayout>
 
     <Button
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
         android:id="@+id/btn_first"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="Next"
-        android:visibility="gone"
         android:textSize="30sp"
-        android:background="@drawable/btn_background"/>
+        android:layout_marginHorizontal="10dp"
+        android:backgroundTint="@color/orange"/>
     
     <LinearLayout
         android:id="@+id/container"
